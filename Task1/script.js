@@ -5,108 +5,91 @@ let confirmPassword = document.getElementById("confirmPassword");
 const btn = document.getElementById("btn");
 let isValid = false;
 
-username.addEventListener("keypress", () => {
-  if (username.value.length < 3) {
+function validateUsername() {
+  if (username.value.length == 0) {
+    document.getElementById("nameError").textContent = "Name is required";
+    return false;
+  } else if (username.value.length < 3) {
     document.getElementById("nameError").textContent =
       "Name should be at least 3 characters";
-    isValid = false;
-  } else {
-    document.getElementById("nameError").textContent = "";
-    isValid = true;
-  }
-});
-
-username.addEventListener("blur", () => {
-  if (localStorage.getItem("formData")) {
+    return false;
+  } else if (localStorage.getItem("formData")) {
     let data = JSON.parse(localStorage.getItem("formData"));
-    data.map((item) => {
-      if (item.name === username.value) {
-        document.getElementById("nameError").textContent =
-          "Name already exists";
-        isValid = false;
-      }
-    });
+    if (data.some((item) => item.name === username.value)) {
+      document.getElementById("nameError").textContent = "Name already exists";
+      return false;
+    }
   }
-});
+  document.getElementById("nameError").textContent = "";
+  return true;
+}
 
-email.addEventListener("keypress", () => {
+function validateEmail() {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailPattern.test(email.value)) {
     document.getElementById("emailError").textContent = "Email is not valid";
-    isValid = false;
-  } else {
-    document.getElementById("emailError").textContent = "";
-    isValid = true;
+    return false;
   }
-});
-
-email.addEventListener("blur", () => {
   if (localStorage.getItem("formData")) {
     let data = JSON.parse(localStorage.getItem("formData"));
-    data.map((item) => {
-      if (item.email === email.value) {
-        document.getElementById("emailError").textContent =
-          "Email already registered";
-        isValid = false;
-      }
-    });
+    if (data.some((item) => item.email === email.value)) {
+      document.getElementById("emailError").textContent =
+        "Email already registered";
+      return false;
+    }
   }
-});
+  document.getElementById("emailError").textContent = "";
+  return true;
+}
 
-password.addEventListener("keypress", () => {
+function validatePassword() {
   const passwordPattern =
     /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/;
   if (!passwordPattern.test(password.value)) {
     document.getElementById("passwordError").textContent =
       "Password should be at least 8 characters with one capital letter and one special character";
-    isValid = false;
-  } else {
-    document.getElementById("passwordError").textContent = "";
-    isValid = true;
+    return false;
   }
-});
+  document.getElementById("passwordError").textContent = "";
+  return true;
+}
 
-confirmPassword.addEventListener("focus", () => {
-  if (password.value === confirmPassword.value) {
-    document.getElementById("confirmPasswordError").textContent = "";
-    isValid = true;
-  } else {
+function validateConfirmPassword() {
+  if (password.value !== confirmPassword.value) {
     document.getElementById("confirmPasswordError").textContent =
       "Password and Confirm Password should be the same";
-    isValid = false;
+    return false;
   }
-});
+  document.getElementById("confirmPasswordError").textContent = "";
+  return true;
+}
 
-confirmPassword.addEventListener("blur", () => {
-  if (password.value === confirmPassword.value) {
-    document.getElementById("confirmPasswordError").textContent = "";
-    isValid = true;
-  }
-});
+username.addEventListener("blur", validateUsername);
+email.addEventListener("blur", validateEmail);
+password.addEventListener("blur", validatePassword);
+confirmPassword.addEventListener("blur", validateConfirmPassword);
 
 btn.addEventListener("click", () => {
-  if (isValid) {
-    const formData = [
-      {
-        name: username.value,
-        email: email.value,
-        password: password.value,
-      },
-    ];
+  const isFormValid =
+    validateUsername() &&
+    validateEmail() &&
+    validatePassword() &&
+    validateConfirmPassword();
 
-    if (localStorage.getItem("formData")) {
-      const oldData = JSON.parse(localStorage.getItem("formData"));
-      oldData.push({
-        name: username.value,
-        email: email.value,
-        password: password.value,
-      });
-      localStorage.setItem("formData", JSON.stringify(oldData));
-    } else {
-      localStorage.setItem("formData", JSON.stringify(formData));
-    }
+  if (isFormValid) {
+    const formData = {
+      name: username.value,
+      email: email.value,
+      password: password.value,
+    };
+
+    let data = JSON.parse(localStorage.getItem("formData")) || [];
+    data.push(formData);
+    localStorage.setItem("formData", JSON.stringify(data));
+
     console.log(localStorage.getItem("formData"));
-    const formreset = document.getElementById("form");
-    formreset.reset();
-  } else alert("Please fill the valid data");
+    document.getElementById("form").reset();
+  } else {
+    alert("Please fill the valid data");
+  }
 });
