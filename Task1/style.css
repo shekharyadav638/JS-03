@@ -1,0 +1,35 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 50%;
+}
+
+input{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button{
+    margin-top: 20px;
+    display: flex;
+    padding: 10px 50px;
+    justify-content: center;
+    background-color: bisque;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+  }
