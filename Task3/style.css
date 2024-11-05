@@ -6,20 +6,11 @@
 #search{
     display: flex;
     justify-content: center;
-    padding: 5px 20px;
-    width: 40%;
-}
-
-.search{
-    display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-}
-
-button{
-    margin-left: 10px;
-    padding: 5px 20px;   
+    margin-left: 25%;
+    padding: 5px 20px;
+    width: 50%;
 }
 
 h1{
@@ -66,4 +57,14 @@ h1{
     margin-right: auto;
     width: 50%;
     height: 50%;
+}
+
+#category{
+    width: 25%;
+    padding: 5px 10px;
+    margin-left: 37.5%;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+
 }

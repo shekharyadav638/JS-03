@@ -7,6 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
   loadingIcon.className = "loading-icon";
   loadingIcon.innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="loading">`;
 
+  async function generateCategories() {
+    const category = document.getElementById("category");
+    const url = "https://dummyjson.com/products/category-list";
+    const response = await fetch(url);
+    let categories = await response.json();
+
+    categories.forEach((cat) => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+      category.appendChild(option);
+    });
+  }
+
   async function fetchProducts(searchTerm = "") {
     try {
       const url = searchTerm
@@ -44,12 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p class="price">$${product.price}</p>
                   `;
       fragment.appendChild(card);
-      if (i === filterProducts.length - 1) {
-        const noMoreProducts = document.createElement("div");
-        noMoreProducts.className = "no-more-products";
-        noMoreProducts.innerHTML = "No more products to show";
-        fragment.appendChild(noMoreProducts);
-      }
     }
     container.appendChild(fragment);
     currentIndex += itemsPerLoad;
@@ -83,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   fetchProducts();
+  generateCategories();
 
   const searchInput = document.getElementById("search");
   function filterPro() {
