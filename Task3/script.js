@@ -6,12 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadingIcon = document.createElement("div");
   loadingIcon.className = "loading-icon";
   loadingIcon.innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="loading">`;
+  const category = document.getElementById("category");
+  const searchInput = document.getElementById("search");
 
   async function generateCategories() {
-    const category = document.getElementById("category");
     const url = "https://dummyjson.com/products/category-list";
     const response = await fetch(url);
     let categories = await response.json();
+
+    const option = document.createElement("option");
+    option.textContent = "All";
+    category.appendChild(option);
 
     categories.forEach((cat) => {
       const option = document.createElement("option");
@@ -21,13 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  async function fetchProducts(searchTerm = "") {
+  category.addEventListener("change", (event) => {
+    const selectedCategory = event.target.value;
+    fetchProducts(searchInput.value, selectedCategory);
+  });
+
+  async function fetchProducts(searchTerm = "", category = "") {
     try {
-      const url = searchTerm
-        ? `https://dummyjson.com/products/search?q=${encodeURIComponent(
-            searchTerm
-          )}`
-        : "https://dummyjson.com/products";
+      let url;
+      if (searchTerm) {
+        url = `https://dummyjson.com/products/search?q=${encodeURIComponent(
+          searchTerm
+        )}`;
+      } else if (category) {
+        if (category === "All") url = "https://dummyjson.com/products";
+        else
+          url = `https://dummyjson.com/products/category/${encodeURIComponent(
+            category
+          )}`;
+      } else {
+        url = "https://dummyjson.com/products";
+      }
 
       const response = await fetch(url);
       products = await response.json();
@@ -92,8 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetchProducts();
   generateCategories();
-
-  const searchInput = document.getElementById("search");
   function filterPro() {
     const searchValue = searchInput.value.trim().toLowerCase();
     fetchProducts(searchValue);
