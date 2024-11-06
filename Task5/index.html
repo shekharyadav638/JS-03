@@ -5,9 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Collapsable Sidebar</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
   </head>
   <body>
-    <div id="sidebar"></div>
+    <div id="sidebar">
+      <div class="newAdd">
+        <button id="new-file" title="New file">
+          <i class="fa fa-file"></i>
+        </button>
+        <button id="new-folder" title="New Folder">
+          <i class="fa fa-folder"></i>
+        </button>
+        <button id="collapse-all" title="Collapse All">
+          <i class="fa fa-compress"></i>
+        </button>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
