@@ -3,8 +3,16 @@ const newFileButton = document.getElementById("new-file");
 const newFolderButton = document.getElementById("new-folder");
 let latestExpandedFolder = sidebar;
 
-const collapseAllButton = document.getElementById("collapse-all");
+const toggleSidebarButton = document.getElementById("toggle-sidebar");
+toggleSidebarButton.addEventListener("click", () => {
+  sidebar.classList.toggle("collapsed");
 
+  const icon = toggleSidebarButton.querySelector("i");
+  icon.classList.toggle("fa-angle-bottom");
+  icon.classList.toggle("fa-angle-up");
+});
+
+const collapseAllButton = document.getElementById("collapse-all");
 collapseAllButton.addEventListener("click", () => {
   const subFolders = document.querySelectorAll(".sub-folder");
   subFolders.forEach((folder) => {
