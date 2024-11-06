@@ -1,0 +1,44 @@
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100%;
+}
+
+.folder {
+    display: flex;
+    flex-direction: column;
+}
+
+.folder-header {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.folder-header:hover, .file:hover {
+    background-color: #f0f0f0;
+}
+
+.file {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.sub-folder {
+    padding-left: 20px;
+    display: none; 
+}
+
+.sub-folder.active {
+    display: block;
+}

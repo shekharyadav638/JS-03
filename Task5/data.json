@@ -1,0 +1,181 @@
+{
+    "root": [
+      {
+        "type": "folder",
+        "name": "src",
+        "items": [
+          {
+            "type": "folder",
+            "name": "components",
+            "items": [
+              {
+                "type": "file",
+                "name": "Header.js"
+              },
+              {
+                "type": "file",
+                "name": "Footer.js"
+              },
+              {
+                "type": "file",
+                "name": "Sidebar.js"
+              },
+              {
+                "type": "folder",
+                "name": "modals",
+                "items": [
+                  {
+                    "type": "file",
+                    "name": "LoginModal.js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "SignupModal.js"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "folder",
+            "name": "pages",
+            "items": [
+              {
+                "type": "file",
+                "name": "HomePage.js"
+              },
+              {
+                "type": "file",
+                "name": "AboutPage.js"
+              },
+              {
+                "type": "file",
+                "name": "ContactPage.js"
+              },
+              {
+                "type": "folder",
+                "name": "blog",
+                "items": [
+                  {
+                    "type": "file",
+                    "name": "BlogPost1.js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "BlogPost2.js"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "folder",
+            "name": "assets",
+            "items": [
+              {
+                "type": "folder",
+                "name": "images",
+                "items": [
+                  {
+                    "type": "file",
+                    "name": "logo.png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "background.jpg"
+                  }
+                ]
+              },
+              {
+                "type": "folder",
+                "name": "styles",
+                "items": [
+                  {
+                    "type": "file",
+                    "name": "main.css"
+                  },
+                  {
+                    "type": "file",
+                    "name": "theme.css"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "App.js"
+          },
+          {
+            "type": "file",
+            "name": "index.js"
+          }
+        ]
+      },
+      {
+        "type": "folder",
+        "name": "public",
+        "items": [
+          {
+            "type": "file",
+            "name": "index.html"
+          },
+          {
+            "type": "file",
+            "name": "favicon.ico"
+          },
+          {
+            "type": "folder",
+            "name": "data",
+            "items": [
+              {
+                "type": "file",
+                "name": "sample-data.json"
+              },
+              {
+                "type": "file",
+                "name": "config.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "folder",
+        "name": "node_modules",
+        "items": [
+          {
+            "type": "file",
+            "name": "lodash.js"
+          }
+        ]
+      },
+      {
+        "type": "folder",
+        "name": "config",
+        "items": [
+          {
+            "type": "file",
+            "name": "webpack.config.js"
+          },
+          {
+            "type": "file",
+            "name": "babel.config.js"
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "package.json"
+      },
+      {
+        "type": "file",
+        "name": "README.md"
+      },
+      {
+        "type": "file",
+        "name": ".gitignore"
+      }
+    ]
+  }
+  
