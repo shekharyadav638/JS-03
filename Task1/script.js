@@ -2,8 +2,32 @@ let username = document.getElementById("name");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
 let confirmPassword = document.getElementById("confirmPassword");
-const btn = document.getElementById("btn");
+const signup = document.getElementById("signup");
+const signin = document.getElementById("signin");
+const register = document.getElementById("register");
+const login = document.getElementById("login");
+const registerBtn = document.getElementById("registerBtn");
+const loginBtn = document.getElementById("loginBtn");
 let isValid = false;
+window.password = password;
+
+signup.addEventListener("click", (event) => {
+  event.preventDefault();
+  login.style.display = "none";
+  register.style.display = "flex";
+  signup.classList.add("active");
+  signin.classList.remove("active");
+  document.getElementById("title").textContent = "Register with Us";
+});
+
+signin.addEventListener("click", (event) => {
+  event.preventDefault();
+  register.style.display = "none";
+  login.style.display = "flex";
+  signin.classList.add("active");
+  signup.classList.remove("active");
+  document.getElementById("title").textContent = "Login";
+});
 
 function validateUsername() {
   if (username.value.length == 0) {
@@ -69,7 +93,7 @@ email.addEventListener("blur", validateEmail);
 password.addEventListener("blur", validatePassword);
 confirmPassword.addEventListener("blur", validateConfirmPassword);
 
-btn.addEventListener("click", () => {
+registerBtn.addEventListener("click", () => {
   const isFormValid =
     validateUsername() &&
     validateEmail() &&
@@ -88,8 +112,25 @@ btn.addEventListener("click", () => {
     localStorage.setItem("formData", JSON.stringify(data));
 
     console.log(localStorage.getItem("formData"));
-    document.getElementById("form").reset();
+    document.getElementById("register").reset();
   } else {
     alert("Please fill the valid data");
+  }
+});
+
+const loginemail = document.getElementById("loginemail");
+const loginpassword = document.getElementById("loginpassword");
+
+loginBtn.addEventListener("click", () => {
+  const formData = JSON.parse(localStorage.getItem("formData")) || [];
+  const user = formData.find(
+    (item) =>
+      item.email == loginemail.value && item.password == loginpassword.value
+  );
+  if (user) {
+    window.location.href = "admin.html";
+    login.reset();
+  } else {
+    alert("Invalid credentials");
   }
 });

@@ -1,15 +1,22 @@
-body{
+.container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #fff;
+    width: 60%;
+    margin-left: 20%;
 }
-.form{
+
+.register , .login{
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    width: 50%;
+    width: 100%;
+}
+
+.login{
+    display: none;
 }
 
 input{
@@ -19,14 +26,41 @@ input{
     border-radius: 5px;
 }
 
-button{
-    margin-top: 20px;
+.header{
     display: flex;
-    padding: 10px 50px;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.btn{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    & a{
+        color: #000;
+        font-size: 25px;
+        text-decoration: none;
+    }
+}
+
+#signup.active,
+#signin.active {
+  color: blue;
+  border-bottom: 2px solid blue;
+}
+
+button{
+    display: flex;
+    padding: 10px 20px;
     justify-content: center;
     align-items: center;
     background-color: bisque;
     cursor: pointer;
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 20px;
 }
 
 .error {

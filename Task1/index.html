@@ -7,23 +7,39 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Register with Us</h1>
-    <form class="form" id="form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" required />
-      <div class="error" id="nameError"></div>
-      <label for="email">Email:</label>
-      <input type="email" id="email" />
-      <div class="error" id="emailError"></div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" />
-      <div class="error" id="passwordError"></div>
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" />
-      <div class="error" id="confirmPasswordError"></div>
-      <button id="btn" type="button">Register</button>
-    </form>
-
+    <div class="container">
+      <div class="header">
+        <h1 id="title">Register with Us</h1>
+        <div class="btn">
+          <a href="" id="signup" class="active">Sign Up</a>
+          <a href="" id="signin">Sign In</a>
+        </div>
+      </div>
+      <form class="register" id="register">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required />
+        <div class="error" id="nameError"></div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" />
+        <div class="error" id="emailError"></div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" />
+        <div class="error" id="passwordError"></div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" />
+        <div class="error" id="confirmPasswordError"></div>
+        <button id="registerBtn" type="button">Register</button>
+      </form>
+      <form class="login" id="login">
+        <label for="email">Email:</label>
+        <input type="email" id="loginemail" />
+        <div class="error" id="emailError"></div>
+        <label for="password">Password:</label>
+        <input type="password" id="loginpassword" />
+        <div class="error" id="passwordError"></div>
+        <button id="loginBtn" type="button">Log in</button>
+      </form>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
