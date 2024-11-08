@@ -9,7 +9,6 @@ const login = document.getElementById("login");
 const registerBtn = document.getElementById("registerBtn");
 const loginBtn = document.getElementById("loginBtn");
 let isValid = false;
-window.password = password;
 
 signup.addEventListener("click", (event) => {
   event.preventDefault();
@@ -125,7 +124,7 @@ loginBtn.addEventListener("click", () => {
   const formData = JSON.parse(localStorage.getItem("formData")) || [];
   const user = formData.find(
     (item) =>
-      item.email == loginemail.value && item.password == loginpassword.value
+      item.email === loginemail.value && item.password === loginpassword.value
   );
   if (user) {
     window.location.href = "admin.html";

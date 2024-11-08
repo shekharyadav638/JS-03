@@ -58,12 +58,117 @@ button{
     align-items: center;
     background-color: bisque;
     cursor: pointer;
-    width: 40%;
-    margin-left: 30%;
     margin-top: 20px;
+}
+
+.registerBtn{
+    width: 40%;
+    margin: auto;
 }
 
 .error {
     color: red;
     font-size: 0.9em;
   }
+
+  .admin{
+    width: 90%;
+    margin: auto;
+  }
+
+  .admin_header{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  .logout{
+    width: 100px;
+    background-color: rgb(43, 42, 40);
+    font-size: 15px;
+    color: white;
+    border: none;
+  }
+
+  #editBtn , #deleteBtn{
+    width: 100px;
+  }
+
+#editBtn{
+    background-color: rgb(79, 153, 66);
+    border: none;
+    color: white;
+}
+
+  #deleteBtn{
+    background-color: red;
+    border: none;
+    color: white;
+  }
+
+.customize_form{
+    margin: auto;
+    align-items: center;
+}
+
+.save{
+    width: 200px;
+    background-color: rgb(58, 110, 206);
+    font-size: 20px;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    align-content: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+
+  .modal-content {
+    background-color: #e3e0e0 !important;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 300px;
+    position: relative;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  #fieldType{
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    align-content: center;
+  }
+
+#fieldType option{
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    align-content: center;
+}
+
+#fieldValue{
+    padding: 5px 10px;
+    margin-bottom: 10px;    
+}
+
