@@ -5,11 +5,13 @@ const selectOptionsContainer = document.getElementById(
 const addfield = document.getElementById("addfield");
 const fieldClose = document.getElementById("fieldClose");
 const save = document.getElementById("save");
+const fieldType = document.getElementById("fieldType");
 const fieldValue = document.getElementById("fieldValue");
+let editingFieldIndex = null;
 
 addfield.addEventListener("click", () => {
-  document.getElementById("fieldValue").value = "";
-  document.getElementById("fieldVisibility").checked = false;
+  resetModal();
+  editingFieldIndex = null;
   document.getElementById("fieldModal").style.display = "flex";
   document.getElementById("admin").style.opacity = "0.5";
 });
@@ -21,9 +23,9 @@ fieldClose.addEventListener("click", () => {
 
 fieldType.addEventListener("change", () => {
   const selectedOption = fieldType.value;
-  if (selectedOption === "select") {
+  if (selectedOption === "select" || selectedOption === "radio") {
     selectOptionsContainer.style.display = "block";
-    document.getElementById("fieldValue").placeholder = "";
+    fieldValue.placeholder = "";
   } else {
     selectOptionsContainer.style.display = "none";
   }
@@ -33,23 +35,35 @@ save.addEventListener("click", () => {
   const newField = {
     type: fieldType.value,
     labelValue: fieldValue.value,
-    visibility: fieldVisibility.checked,
+    visibility: document.getElementById("fieldVisibility").checked,
+    required: document.getElementById("fieldRequired").checked,
   };
 
-  if (newField.type === "select") {
+  if (newField.type === "select" || newField.type === "radio") {
     const options = document.getElementById("selectOptions").value.split(",");
     newField.options = options.map((option) => option.trim());
   }
 
   let formFields = JSON.parse(localStorage.getItem("formFields")) || [];
-  formFields.push(newField);
-  localStorage.setItem("formFields", JSON.stringify(formFields));
 
-  addFieldToForm(newField);
+  if (editingFieldIndex !== null) formFields[editingFieldIndex] = newField;
+  else formFields.push(newField);
+
+  localStorage.setItem("formFields", JSON.stringify(formFields));
+  renderFields();
   fieldClose.click();
 });
 
-function addFieldToForm(field) {
+function renderFields() {
+  const formContainer = document.getElementById("register");
+  formContainer.innerHTML = "";
+  const savedFields = JSON.parse(localStorage.getItem("formFields")) || [];
+  savedFields.forEach((field, index) => {
+    addFieldToForm(field, index);
+  });
+}
+
+function addFieldToForm(field, index) {
   const newField = document.createElement("div");
   const fieldLabel = document.createElement("label");
   fieldLabel.textContent = field.labelValue + ":";
@@ -68,6 +82,23 @@ function addFieldToForm(field) {
       select.appendChild(opt);
     });
     fieldContainer.appendChild(select);
+  } else if (field.type === "radio") {
+    const radioGroup = document.createElement("div");
+    radioGroup.className = "w-75";
+    field.options.forEach((option) => {
+      const radioContainer = document.createElement("div");
+      radioContainer.className = "d-flex gap-2";
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = field.labelValue;
+      radio.value = option;
+      radioContainer.appendChild(radio);
+      const radioLabel = document.createElement("label");
+      radioLabel.textContent = option;
+      radioContainer.appendChild(radioLabel);
+      radioGroup.appendChild(radioContainer);
+      fieldContainer.appendChild(radioGroup);
+    });
   } else {
     const input = document.createElement("input");
     input.className = "w-75";
@@ -80,20 +111,50 @@ function addFieldToForm(field) {
   editButton.textContent = "Edit";
   editButton.type = "button";
   editButton.id = "editBtn";
+  editButton.addEventListener("click", () => openEditModal(field, index));
 
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Delete";
   deleteButton.type = "button";
   deleteButton.id = "deleteBtn";
+  deleteButton.addEventListener("click", () => deleteField(index));
 
   fieldContainer.appendChild(editButton);
-  fieldContainer.appendChild(deleteButton);
+  if (!field.required) fieldContainer.appendChild(deleteButton);
   newField.appendChild(fieldContainer);
-  console.log(newField);
   document.getElementById("register").appendChild(newField);
 }
 
-window.addEventListener("load", () => {
-  const savedFields = JSON.parse(localStorage.getItem("formFields")) || [];
-  savedFields.forEach(addFieldToForm);
-});
+function openEditModal(field, index) {
+  editingFieldIndex = index;
+  document.getElementById("fieldModal").style.display = "flex";
+  document.getElementById("admin").style.opacity = "0.5";
+
+  fieldType.value = field.type;
+  fieldValue.value = field.labelValue;
+  document.getElementById("fieldVisibility").checked = field.visibility;
+
+  if (field.type === "select" || field.type === "radio") {
+    selectOptionsContainer.style.display = "block";
+    document.getElementById("selectOptions").value = field.options.join(", ");
+  } else {
+    selectOptionsContainer.style.display = "none";
+  }
+}
+
+function resetModal() {
+  fieldType.value = "text";
+  fieldValue.value = "";
+  document.getElementById("fieldVisibility").checked = false;
+  document.getElementById("selectOptions").value = "";
+  selectOptionsContainer.style.display = "none";
+  editingFieldIndex = null;
+}
+
+function deleteField(index) {
+  let formFields = JSON.parse(localStorage.getItem("formFields")) || [];
+  formFields.splice(index, 1);
+  localStorage.setItem("formFields", JSON.stringify(formFields));
+  renderFields();
+}
+window.addEventListener("load", renderFields);
