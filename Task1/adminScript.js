@@ -8,8 +8,8 @@ const save = document.getElementById("save");
 const fieldType = document.getElementById("fieldType");
 const fieldValue = document.getElementById("fieldValue");
 const savechanges = document.getElementById("savechanges");
-let editingFieldIndex = null;
 let tempFormFields = JSON.parse(localStorage.getItem("formFields")) || []; // to store fields temporarily and will update in localstorage when I click on save changes button
+let editingFieldIndex = null;
 
 addfield.addEventListener("click", () => {
   resetModal();

@@ -13,6 +13,7 @@ signup.addEventListener("click", (event) => {
   event.preventDefault();
   loginForm.style.display = "none";
   registerForm.style.display = "flex";
+  registerBtn.style.display = "flex";
   signup.classList.add("active");
   signin.classList.remove("active");
   document.getElementById("title").textContent = "Register with Us";
@@ -35,10 +36,11 @@ loginBtn.addEventListener("click", () => {
       item.email === loginemail.value && item.password === loginpassword.value
   );
   if (user) {
+    showNotification("Login Successful", false);
     window.location.href = "admin.html";
     login.reset();
   } else {
-    alert("Invalid credentials");
+    showNotification("Invalid email or password", true);
   }
 });
 
@@ -196,7 +198,6 @@ registerBtn.addEventListener("click", () => {
 });
 
 function showNotification(message, isError = false) {
-  console.log(message);
   notification.textContent = message;
   notification.classList.add("show");
   if (isError) notification.classList.add("error");
