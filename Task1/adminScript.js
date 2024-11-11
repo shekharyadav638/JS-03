@@ -7,6 +7,7 @@ const fieldClose = document.getElementById("fieldClose");
 const save = document.getElementById("save");
 const fieldType = document.getElementById("fieldType");
 const fieldValue = document.getElementById("fieldValue");
+const savechanges = document.getElementById("savechanges");
 let editingFieldIndex = null;
 
 addfield.addEventListener("click", () => {
@@ -157,4 +158,12 @@ function deleteField(index) {
   localStorage.setItem("formFields", JSON.stringify(formFields));
   renderFields();
 }
+
+savechanges.addEventListener("click", () => {
+  const formFields = JSON.parse(localStorage.getItem("formFields")) || [];
+  localStorage.setItem("formFields", JSON.stringify(formFields));
+
+  alert("Form fields updated successfully!");
+});
+
 window.addEventListener("load", renderFields);

@@ -8,14 +8,22 @@
     margin-left: 20%;
 }
 
-.register , .login{
+.fieldWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.registerForm , .loginForm{
     display: flex;
     flex-direction: column;
     margin-top: 20px;
     width: 100%;
 }
 
-.login{
+.loginForm{
     display: none;
 }
 
@@ -177,5 +185,10 @@ button{
 #fieldValue{
     padding: 5px 10px;
     margin-bottom: 10px;    
+}
+
+select{
+  padding: 10px;
+  margin-bottom: 15px !important;
 }
 
