@@ -6,6 +6,7 @@ const registerBtn = document.getElementById("registerBtn");
 const loginBtn = document.getElementById("loginBtn");
 const loginemail = document.getElementById("loginemail");
 const loginpassword = document.getElementById("loginpassword");
+const notification = document.getElementById("notification");
 let isValid = false;
 
 signup.addEventListener("click", (event) => {
@@ -20,6 +21,7 @@ signup.addEventListener("click", (event) => {
 signin.addEventListener("click", (event) => {
   event.preventDefault();
   registerForm.style.display = "none";
+  registerBtn.style.display = "none";
   loginForm.style.display = "flex";
   signin.classList.add("active");
   signup.classList.remove("active");
@@ -156,7 +158,7 @@ function renderFields() {
   const savedFields = JSON.parse(localStorage.getItem("formFields")) || [];
 
   savedFields.forEach((field) => {
-    addFieldToForm(field);
+    if (field.visibility) addFieldToForm(field);
   });
 
   document.getElementById("name")?.addEventListener("blur", validateUsername);
@@ -167,35 +169,42 @@ function renderFields() {
   document
     .getElementById("confirmpassword")
     ?.addEventListener("blur", validateConfirmPassword);
+}
 
-  const registerBtn = document.createElement("button");
-  registerBtn.id = "registerBtn";
-  registerBtn.textContent = "Register";
-  registerForm.appendChild(registerBtn);
+registerBtn.addEventListener("click", () => {
+  const isFormValid =
+    validateUsername() &&
+    validateEmail() &&
+    validatePassword() &&
+    validateConfirmPassword();
 
-  registerBtn.addEventListener("click", () => {
-    const isFormValid =
-      validateUsername() &&
-      validateEmail() &&
-      validatePassword() &&
-      validateConfirmPassword();
+  if (isFormValid) {
+    const formData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+    };
 
-    if (isFormValid) {
-      const formData = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value,
-      };
+    let data = JSON.parse(localStorage.getItem("formData")) || [];
+    data.push(formData);
+    localStorage.setItem("formData", JSON.stringify(data));
+    showNotification("Registration successful!", false);
+    registerForm.reset();
+  } else {
+    showNotification("Please fill the valid data", true);
+  }
+});
 
-      let data = JSON.parse(localStorage.getItem("formData")) || [];
-      data.push(formData);
-      localStorage.setItem("formData", JSON.stringify(data));
-      alert("Registered successfully");
-      document.getElementById("register").reset();
-    } else {
-      alert("Please fill the valid data");
-    }
-  });
+function showNotification(message, isError = false) {
+  console.log(message);
+  notification.textContent = message;
+  notification.classList.add("show");
+  if (isError) notification.classList.add("error");
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+    notification.classList.remove("error");
+  }, 2000);
 }
 
 window.addEventListener("load", renderFields);
