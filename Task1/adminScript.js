@@ -9,6 +9,7 @@ const fieldType = document.getElementById("fieldType");
 const fieldValue = document.getElementById("fieldValue");
 const savechanges = document.getElementById("savechanges");
 let editingFieldIndex = null;
+let tempFormFields = JSON.parse(localStorage.getItem("formFields")) || []; // to store fields temporarily and will update in localstorage when I click on save changes button
 
 addfield.addEventListener("click", () => {
   resetModal();
@@ -45,12 +46,9 @@ save.addEventListener("click", () => {
     newField.options = options.map((option) => option.trim());
   }
 
-  let formFields = JSON.parse(localStorage.getItem("formFields")) || [];
+  if (editingFieldIndex !== null) tempFormFields[editingFieldIndex] = newField;
+  else tempFormFields.push(newField);
 
-  if (editingFieldIndex !== null) formFields[editingFieldIndex] = newField;
-  else formFields.push(newField);
-
-  localStorage.setItem("formFields", JSON.stringify(formFields));
   renderFields();
   fieldClose.click();
 });
@@ -58,8 +56,7 @@ save.addEventListener("click", () => {
 function renderFields() {
   const formContainer = document.getElementById("register");
   formContainer.innerHTML = "";
-  const savedFields = JSON.parse(localStorage.getItem("formFields")) || [];
-  savedFields.forEach((field, index) => {
+  tempFormFields.forEach((field, index) => {
     addFieldToForm(field, index);
   });
 }
@@ -160,9 +157,7 @@ function deleteField(index) {
 }
 
 savechanges.addEventListener("click", () => {
-  const formFields = JSON.parse(localStorage.getItem("formFields")) || [];
-  localStorage.setItem("formFields", JSON.stringify(formFields));
-
+  localStorage.setItem("formFields", JSON.stringify(tempFormFields));
   alert("Form fields updated successfully!");
 });
 
